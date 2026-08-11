@@ -61,5 +61,5 @@ A two-person student project exploring practical, non-AI cybersecurity tooling.
  
 ## License
  
-MIT (or update as preferred)
+License: TBD — all rights reserved for now.
  
