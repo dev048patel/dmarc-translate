@@ -211,19 +211,23 @@ def fetch_and_store() -> None:
     log.info("Connecting to %s:%s as %s", IMAP_HOST, IMAP_PORT, EMAIL_ADDRESS)
     log.info("Reading from folder: %s", REPORTS_FOLDER)
 
-    results = parsedmarc.get_dmarc_reports_from_inbox(
+    connection = parsedmarc.IMAPConnection(
         host=IMAP_HOST,
         user=EMAIL_ADDRESS,
         password=APP_PASSWORD,
         port=IMAP_PORT,
         ssl=True,
+    )
+
+    results = parsedmarc.get_dmarc_reports_from_mailbox(
+        connection=connection,
         reports_folder=REPORTS_FOLDER,
         archive_folder=ARCHIVE_FOLDER,
         delete=False,   # move to archive instead of deleting
     )
 
     aggregate = results.get("aggregate_reports", [])
-    forensic = results.get("forensic_reports", [])
+    forensic = results.get("failure_reports", [])
     log.info(
         "Fetched %d aggregate report(s) and %d forensic report(s)",
         len(aggregate),
