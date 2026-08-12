@@ -12,5 +12,5 @@ build/
 *.egg-info/
 .DS_Store
 .passwords
-.env.example
-.gitignore
+*.env.example
+*.gitignore
